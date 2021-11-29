@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reducing Interest Loan Estimation</title>
+    <!-- <style type="text/css">
+        h2 {
+            text-align: center;
+            color: #FF0000;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        table {
+            text-align: left;
+            background-color: #FFe77a;
+            padding: 10px;
+
+        }
+
+        thead {
+            text-align: center;
+        }
+
+        #tablemain {
+            margin-left: 35%;
+        }
+
+        #Estimate {
+            background-color: #f1f334;
+            color: #000000;
+            font-size: 15px;
+            height: 35px;
+            width: 100px;
+
+        }
+    </style> -->
+</head>
+
+<body>
+
+    <form  name="form1" method="post" onsubmit="return EstimateReducingInterestLoan()">
+
+        <h2><i>Fixed And Reducing Loan Estimator</i></h2>
+
+            <table  class="table1">
+
+
+                <tr>
+                    <td >
+                        Principal Loan Amount(Rs.)
+                    </td>
+
+                    <td><input type="number" id="principalAmount" value="1000000" required></td>
+                </tr>
+
+
+                <tr>
+
+                    <td >Interest Rate(%)</td>
+                
+                    <td><input type="number" id="interestRate" value="11"  required></td>
+                </tr>
+
+                <tr>
+                    <td>Tenure (in months)</td>
+                    <td><input type="number" id="tenure" value="60" required></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input  class="button1" style="background-color: #f1f334; margin-left: 55% ; margin-top: 10px;" type="submit" value="Estimate" id="Estimate">
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td colspan="2">
+                        <h3 style="margin-bottom: 0em; text-align: center;" >Loan Estimation</h3></td>
+                </tr>
+
+              
+
+
+                           
+<tr>
+    <td colspan="2">
+    <table class="table2" style="border: 2px solid #686142;"><thead>
+    <tr>
+        <th class="tr1">
+            Details
+        </th>
+
+        <th class="tr1">Reducing Interest Loan</th>
+        <th class="tr1">Fixed Interest Loan</th>
+    </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td class="tr1">Total Interest Rs.</td>
+            <td class="tr1" id="tInterest" style="text-align: center;"></td>
+            <td  class="tr1" id="tInterestFixed"  style="text-align: center;"></td>
+        </tr>
+
+        <tr>
+            <td class="tr1">Total Payment Rs.</td>
+            <td class="tr1" id="tPayment"  style="text-align: center;"></td>
+            <td class="tr1" id="tPaymentFixed" style="text-align: center;"></td>
+        </tr>
+
+        <tr>
+            <td class="tr1">Monthly EMI Rs.</td>
+            <td class="tr1" id="EMI" style="text-align: center;"></td>
+            <td  class="tr1" id="EMIFixed" style="text-align: center;"></td>
+        </tr>
+    </tbody>
+
+    </table>
+
+</td>
+</tr>
+
+</form>
+
+
+<script type="text/javascript">
+
+    function  EstimateReducingInterestLoan(){
+         
+
+        var a =document.getElementById("principalAmount").value;
+
+        var b=document.getElementById("interestRate").value;
+        var c=document.getElementById("tenure").value;
+
+        var p= parseInt(a);
+        var r=parseInt(b);
+        var n=parseInt(c);
+
+        var ry= r/1200;
+
+        var lt=p*ry; //leftterm
+
+        var ut = Math.pow((1+ry),n);  //upperfractio
+        var bt = ut-1; //bottomfraction
+
+        var ratio = ut/bt;
+
+        var emi = lt*ratio;//emi
+
+       // var emi = p*ry*((1+ry)^n/((1+ry)^n-1));
+
+  
+
+
+        document.getElementById("EMI").innerHTML=emi.toFixed(2);
+        
+
+        var totalPayment = emi*n;
+
+        document.getElementById("tPayment").innerHTML=totalPayment.toFixed(2);
+        
+
+
+        var totalInterest = totalPayment - p;
+
+        document.getElementById("tInterest").innerHTML=totalInterest.toFixed(2);
+
+         var interestFixed = p*(r/100)*(n/12);
+         document.getElementById("tInterestFixed").innerHTML=interestFixed.toFixed(2);
+
+         var paymentFixed = p+interestFixed;
+         document.getElementById("tPaymentFixed").innerHTML=paymentFixed.toFixed(2);
+
+         var emiFixed = paymentFixed/n;
+         document.getElementById("EMIFixed").innerHTML=emiFixed.toFixed(2);
+
+
+        return false;
+
+    }
+    
+</script>
+            
+                
+            
+
+
+            </table>
+
+    
+
+</body>
+
+</html>
